@@ -10,7 +10,7 @@
 # DIREKTIV_TOKEN: authentication token created in Direktiv for the namespace (secret)
 #
 
-name: Direktiv namespace synchronisation
+name: Direktiv GitHub Synchronisation
 
 branding:
   icon: 'share-2'
