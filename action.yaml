@@ -12,6 +12,8 @@
 
 name: Direktiv Synchronisation
 
+description: Direktiv GitHub Action syncrhonises the GitHub repository on which the action is executed with the Direktiv instance and namespace (or folder)
+
 branding:
   icon: 'share-2'
   color: 'purple'
