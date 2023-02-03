@@ -1,0 +1,36 @@
+#
+# This is a Direkitv aciton which can be used to syncrhonise your repository with the
+# configured namespace in Direktiv. The required inputs to the action are:
+# DIREKTIV_URL: Direktiv URL and port in the format "https://{fqdn}:{port}
+# DIREKTIV_NAMESPACE: namespace in Direktiv to synchronise
+# (OPTIONAL) DIREKTIV_DIRECTORY: if the sync is happening to a directory, add the full path
+#                       for the sync i.e. /workflows/directory
+# 
+# It is suggested to create the following scecret for the action:
+# DIREKTIV_TOKEN: authentication token created in Direktiv for the namespace (secret)
+#
+
+name: Direktiv namespace synchronisation
+
+branding:
+  icon: 'share-2'
+  color: 'purple'
+
+# Controls when the workflow will run
+on:
+  push:
+    branches: 
+    - [ "main" ]
+
+env:
+  DIREKTIV_URL: ''
+  DIREKTIV_NAMESPACE: ''
+  DIREKTIV_DIRECTORY: ''
+
+jobs:
+  run-updater:
+    runs-on: ubuntu-latest
+    steps:
+    - name: REST API with curl to ${{ env.DIREKTIV_URL }}
+      run: |
+        curl -X POST "${{ env.DIREKTIV_URL }}/api/namespaces/${{ env.DIREKTIV_NAMESPACE }}/tree${{ env.DIREKTIV_DIRECTORY }}?op=sync-mirror&force=true" -H "direktiv-token: ${{ secrets.DIREKTIV_TOKEN }}"
